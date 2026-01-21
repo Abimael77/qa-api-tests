@@ -1,0 +1,57 @@
+{
+  "info": {
+    "_postman_id": "03f2a23d-e03e-4325-9bc3-db51b8531a80",
+    "name": "API -automation",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "43220676",
+    "_collection_link": "https://go.postman.co/collection/43220676-03f2a23d-e03e-4325-9bc3-db51b8531a80?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Get user JSONPlaceholder",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code deve ser 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Resposta é JSON\", function () {\r",
+              "    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Usuário retornado corretamente\", function () {\r",
+              "    const json = pm.response.json();\r",
+              "\r",
+              "    pm.expect(json).to.have.property(\"id\");\r",
+              "    pm.expect(json).to.have.property(\"name\");\r",
+              "    pm.expect(json).to.have.property(\"email\");\r",
+              "});\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/users/1",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "users",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
