@@ -1,0 +1,479 @@
+{
+  "info": {
+    "_postman_id": "0b6541e3-9546-4ec4-bbd7-3658f3a4428f",
+    "name": "PlatE2E",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "43220676",
+    "_collection_link": "https://go.postman.co/collection/43220676-0b6541e3-9546-4ec4-bbd7-3658f3a4428f?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Cadastro",
+      "item": [
+        {
+          "name": "cadastrosucesso",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "\"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhcHJlbmRlbmRvcWFAZ21haWwuY29tIiwiaWF0IjoxNzY4MTgwNzI1LCJleHAiOjE3NjgxODQzMjV9.bR935SP3Q1H1A2s8QuONXwq2I6LV1fwZS4vPDzjiTPA\"",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer  eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhcHJlbmRlbmRvcWFAZ21haWwuY29tIiwiaWF0IjoxNzY4MTgwNzI1LCJleHAiOjE3NjgxODQzMjV9.bR935SP3Q1H1A2s8QuONXwq2I6LV1fwZS4vPDzjiTPA",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://plataforma.dev.e2etreinamentos.com.br/api/auth/register\n",
+              "protocol": "https",
+              "host": [
+                "plataforma",
+                "dev",
+                "e2etreinamentos",
+                "com",
+                "br"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "register\n"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "login",
+      "item": [
+        {
+          "name": "Login com sucesso",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code é 200\", () => {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response é um JSON\", () => {\r",
+                  "    pm.response.to.be.json;\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Campo nome existe\", () => {\r",
+                  "    const json = pm.response.json();\r",
+                  "    pm.expect(json).to.have.property(\"nome\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Preço é um número\", () => {\r",
+                  "    const json = pm.response.json();\r",
+                  "    pm.expect(json.preco).to.be.a(\"number\");\r",
+                  "});\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhcHJlbmRlbmRvcWFAZ21haWwuY29tIiwiaWF0IjoxNzY4MTgwNTMwLCJleHAiOjE3NjgxODQxMzB9.FxmVXZXjtdzE500-jBhbHp3zQoPHfbdMosi2rVgIj0A",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"emailOuCpf\": \"aprendendoqa@gmail.com\",\r\n  \"senha\": \"Janeiro,2019!\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://plataforma.dev.e2etreinamentos.com.br/api/auth/login",
+              "protocol": "https",
+              "host": [
+                "plataforma",
+                "dev",
+                "e2etreinamentos",
+                "com",
+                "br"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login com senha invalida",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"emailOuCpf\": \"aprendendoqa@gmail.com\",\r\n  \"senha\": \"Janeiro,!\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseurl}}api/auth/login",
+              "host": [
+                "{{baseurl}}api"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "cadastrar Aluno",
+      "item": [
+        {
+          "name": "1 aluno",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"nome\": \"Kevin Benjamin Farias\",\r\n  \"email\": \"dim_reis@hotmail.com\",\r\n  \"cpf\": \"724.449.522-60\",\r\n  \"senha\": \"pJr7h0Eyiy1!\"\r\n}\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://plataforma.dev.e2etreinamentos.com.br/api/auth/register",
+              "protocol": "https",
+              "host": [
+                "plataforma",
+                "dev",
+                "e2etreinamentos",
+                "com",
+                "br"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "criterios de aceite",
+      "item": [
+        {
+          "name": "Criterio Senha",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseurl}}/password-criteria",
+              "host": [
+                "{{baseurl}}"
+              ],
+              "path": [
+                "password-criteria"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Senha",
+      "item": [
+        {
+          "name": "Criterio de senha",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": " \"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhcHJlbmRlbmRvcWFAZ21haWwuY29tIiwiaWF0IjoxNzY0MjkwMzE5LCJleHAiOjE3NjQyOTM5MTl9.K6ZgfYdoH15x-y5Ktpb2Pw9rXwMY_mILBXijVjIweig\",",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://plataforma.dev.e2etreinamentos.com.br/api/auth/password-criteria",
+              "protocol": "https",
+              "host": [
+                "plataforma",
+                "dev",
+                "e2etreinamentos",
+                "com",
+                "br"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "password-criteria"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Validar senha",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n\r\n\r\n\"password\": \"Teste@2019\"\r\n\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://plataforma.dev.e2etreinamentos.com.br/api/auth/validate-password",
+              "protocol": "https",
+              "host": [
+                "plataforma",
+                "dev",
+                "e2etreinamentos",
+                "com",
+                "br"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "validate-password"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Recuperração",
+      "item": [
+        {
+          "name": "recupera senha",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://plataforma.dev.e2etreinamentos.com.br/api/auth/forgot-password",
+              "protocol": "https",
+              "host": [
+                "plataforma",
+                "dev",
+                "e2etreinamentos",
+                "com",
+                "br"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "forgot-password"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "videos",
+      "item": [
+        {
+          "name": "vides1",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "\"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhcHJlbmRlbmRvcWFAZ21haWwuY29tIiwiaWF0IjoxNzY1MjM0NDU1LCJleHAiOjE3NjUyMzgwNTV9.Ekj07W1ZRgAqSf-luqNeoMQkdpgXIjMbbmh2qwcnPNQ\",",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://plataforma.dev.e2etreinamentos.com.br/api/enrollments/me",
+              "protocol": "https",
+              "host": [
+                "plataforma",
+                "dev",
+                "e2etreinamentos",
+                "com",
+                "br"
+              ],
+              "path": [
+                "api",
+                "enrollments",
+                "me"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ]
+}
